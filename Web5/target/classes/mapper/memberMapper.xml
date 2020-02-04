@@ -28,5 +28,11 @@
 			#{email}
 		)
 	</insert>
+	
+	<select id = "getMember" parameterType="string" resultType="member">
+		select * 
+		from web5_member 
+		where id = #{id}
+	</select>
 
 </mapper>

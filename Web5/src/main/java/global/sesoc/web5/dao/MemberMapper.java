@@ -10,4 +10,6 @@ public interface MemberMapper {
 
 	void join(Member m);
 
+	Member getMember(String searchID);
+
 }

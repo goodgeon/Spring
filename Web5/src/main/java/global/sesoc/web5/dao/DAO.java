@@ -47,4 +47,11 @@ public class DAO {
 		
 	}
 
+	public Member getMember(String searchID) {
+		MemberMapper mapper = session.getMapper(MemberMapper.class);
+		Member member = mapper.getMember(searchID);
+		
+		return member;
+	}
+
 }

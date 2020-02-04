@@ -6,11 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function checkID(){
-		var inputID = document.getElementById("inputID").value;
-		var hiddenForm = document.getElementById("hiddenForm");
-		document.getElementById("hiddenID").value = inputID;
-		hiddenForm.submit();
+	function idcheckOpen(){
+		window.open('idcheck','idwin','left=800,width=400,height=300,resizable=no');
 		
 	}
 </script>
@@ -23,8 +20,8 @@
 	<table>
 		<tr>
 			<td class = "td-left">ID</td>
-			<td class = "td-right"><input type = "text" id = "inputID" placeholder = "ID중복확인 이용" name = "id">
-			<input type = "button" value = "ID중복확인" onclick = "checkID()"></td>
+			<td class = "td-right"><input type = "text" id = "inputID" placeholder = "ID중복확인 이용" name = "id" readonly = "readonly" maxlength = "10">
+			<input type = "button" value = "ID중복확인" onclick = "idcheckOpen()"></td>
 		</tr>
 		<tr>
 			<td class = "td-left">비밀번호</td>
