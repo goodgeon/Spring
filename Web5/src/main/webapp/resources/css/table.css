@@ -1,0 +1,26 @@
+@charset "UTF-8";
+h1{
+	text-align : center;
+}
+
+td,tr,td {
+	border : 1px solid white;
+	border-collapse : collapse;
+}
+
+.td-left {
+	background-color:#d3d3d3;
+	font-weight : bold;
+	text-align : center;
+}
+
+.td-right {
+	background-color:#F5F5F5
+}
+
+
+
+table {
+	width : 400px;
+	margin : 200px auto 0 auto;
+}
