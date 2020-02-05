@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import global.sesoc.web5.paging.Paging;
 import global.sesoc.web5.vo.Board;
 import global.sesoc.web5.vo.Member;
 
@@ -26,11 +27,14 @@ public class DAO {
 		return null;
 	}
 
-	public ArrayList<Board> getList() {
+	public ArrayList<Board> getList(int currentPage) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		Paging paging = new Paging();
+		paging.setCurrentPage(currentPage);
+		paging.setPageSize(10);
+		paging.setParams();
 		
-		ArrayList<Board> list = mapper.getList();
-		
+		ArrayList<Board> list = mapper.getList(paging);
 		
 		return list;
 	}

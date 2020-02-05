@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="resources/css/table.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/table.css">
 </head>
 <body>
 <h1>[ 게시판 ]</h1>
@@ -28,8 +28,8 @@
 			<td class = "td-right">${i.inputdate}</td>
 		</tr>
 		</c:forEach>
-	
-
 </table>
+
+<p><a href = "list?currentPage=1">1</a><a href = "list?currentPage=2">2</a></p>
 </body>
 </html>

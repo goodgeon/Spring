@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="global.sesoc.web5.dao.BoardMapper">
-	<select id = "getList" resultType="board">
-		select *
-		from web5_board
+	<select id = "getList" parameterType="paging" resultType="board">
+	
+		 select *
+		from (select * from web5_board order by boardNum)
+		<![CDATA[where  ROWNUM >= #{start} and ROWNUM <= #{end} ]]> 
 	</select>
 
 </mapper>
