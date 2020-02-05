@@ -33,6 +33,8 @@ public class DAO {
 		paging.setCurrentPage(currentPage);
 		paging.setPageSize(10);
 		paging.setParams();
+		System.out.println(paging.getStart());
+		System.out.println(paging.getEnd());
 		
 		ArrayList<Board> list = mapper.getList(paging);
 		

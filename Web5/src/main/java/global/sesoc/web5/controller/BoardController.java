@@ -21,7 +21,6 @@ public class BoardController {
 	public String boardForm(Model model, int currentPage) {
 		ArrayList<Board> list = dao.getList(currentPage);
 		
-		
 		model.addAttribute("list",list);
 		
 		return "/board/boardForm";

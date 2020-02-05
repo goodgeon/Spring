@@ -5,8 +5,8 @@
 	<select id = "getList" parameterType="paging" resultType="board">
 	
 		 select *
-		from (select * from web5_board order by boardNum)
-		<![CDATA[where  ROWNUM >= #{start} and ROWNUM <= #{end} ]]> 
+		from (select ROWNUM as r, b.* from web5_board b order by boardNum) a
+		<![CDATA[where  a.r >= #{start} and a.r <= #{end} ]]> 
 	</select>
 
 </mapper>
