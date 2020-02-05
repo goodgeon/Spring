@@ -22,7 +22,7 @@
 		<c:forEach var = "i" items = "${list}">
 		<tr>
 			<td class = "td-right">${i.boardNum}</td>
-			<td class = "td-right" style = "width : 200px">${i.title}</td>
+			<td class = "td-right" style = "width : 200px"><a href = "board?boardNum=${i.boardNum}">${i.title}</a></td>
 			<td class = "td-right">${i.id}</td>
 			<td class = "td-right">${i.hits}</td>
 			<td class = "td-right">${i.inputdate}</td>

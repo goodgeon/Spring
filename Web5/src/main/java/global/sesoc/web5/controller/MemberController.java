@@ -14,74 +14,78 @@ import global.sesoc.web5.vo.Member;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-	
+
 	@Autowired
 	DAO dao;
-	
+
 	@RequestMapping(value = "/idcheck", method = RequestMethod.GET)
 	public String idcheck() {
 		return "customer/idcheck";
 	}
-	
+
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
 	public String idcheck(String searchID, Model model) {
 		Member member = dao.getMember(searchID);
-		
-		model.addAttribute("searchID",searchID);
-		
-		if(member == null) {
-			model.addAttribute("result",true);
-		}else {
-			model.addAttribute("result",false);
+
+		model.addAttribute("searchID", searchID);
+
+		if (member == null) {
+			model.addAttribute("result", true);
+		} else {
+			model.addAttribute("result", false);
 		}
 		return "customer/idcheck";
 	}
-	
+
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String joinForm() {
-		
+
 		return "customer/joinForm";
 	}
-	
+
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(Member m) {
 		dao.join(m);
 		return "redirect:/";
 	}
-		
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm() {
-		
+
 		return "customer/loginForm";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Member member, HttpSession session) {
 		Member m = dao.login(member);
-		
-		if(m != null)
+
+		if (m != null)
 			session.setAttribute("member", m);
-		
+
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.removeAttribute("member");
-		
+
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/updateMemberInfo", method = RequestMethod.GET)
-	public String updateForm() {
-		
+	public String updateForm(HttpSession session, Model model) {
+
+		if (session.getAttribute("member") == null) {
+			return "redirect:/";
+		}
+
 		return "/customer/updateForm";
 	}
-	
+
 	@RequestMapping(value = "/updateMemberInfo", method = RequestMethod.POST)
 	public String update(Member member, HttpSession session) {
 		dao.updateMemberInfo(member);
-		
+
 		return "redirect:/";
 	}
 
