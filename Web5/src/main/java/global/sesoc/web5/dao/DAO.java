@@ -27,12 +27,9 @@ public class DAO {
 		return null;
 	}
 
-	public ArrayList<Board> getList(int currentPage) {
+	public ArrayList<Board> getList(int currentPage, Paging paging) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		Paging paging = new Paging();
-		paging.setCurrentPage(currentPage);
-		paging.setPageSize(10);
-		paging.setParams();
+		
 		System.out.println(paging.getStart());
 		System.out.println(paging.getEnd());
 		
