@@ -34,7 +34,13 @@
 
 <img src = "../resources/img/left.png" width = "20px" height = "20px">
 <c:forEach var = "pageNum" begin = "${paging.rangeStart }" end = "${paging.rangeEnd }">
-	<a href = "list?currentPage=${pageNum}">${pageNum}</a>
+	<c:if test="${paging.currentPage == pageNum }">
+		<a href = "list?currentPage=${pageNum}" style = "font-weight : bold;">${pageNum}</a>
+	</c:if>
+	<c:if test="${paging.currentPage != pageNum }">
+		<a href = "list?currentPage=${pageNum}">${pageNum}</a>
+	</c:if>
+	
 </c:forEach>
 <img src = "../resources/img/right.png" width = "20px" height = "20px">
 </div>
