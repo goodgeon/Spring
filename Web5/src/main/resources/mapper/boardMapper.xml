@@ -5,8 +5,42 @@
 	<select id = "getList" parameterType="paging" resultType="board">
 	
 		 select *
-		from (select ROWNUM as r, b.* from web5_board b order by boardNum) a
+		from (select ROWNUM as r, b.* from web5_board b order by inputdate desc,boardNum) a
 		<![CDATA[where  a.r >= #{start} and a.r <= #{end} ]]> 
 	</select>
+	
+	<insert id="write" parameterType="board">
+		insert into web5_board
+		(boardNum,id,title,contents)
+		values(
+			web5_board_seq.nextval,
+			#{id},
+			#{title},
+			#{contents}
+		)
+	</insert>
+	
+	<select id="getBoard" parameterType="int" resultType="board">
+		select *
+		from web5_board
+		where boardNum = #{boardNum}
+	</select>
+	
+	<update id="updateBoard" parameterType="board">
+		update web5_board
+		set title = #{title}, contents = #{contents}
+		where boardNum = #{boardNum}
+	</update>
+	
+	<update id="updateHits" parameterType="int">
+		update web5_board
+		set hits = hits+1
+		where boardNum = #{boardNum}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="int">
+		delete from web5_board
+		where boardNum = #{boardNum}
+	</delete>
 
 </mapper>

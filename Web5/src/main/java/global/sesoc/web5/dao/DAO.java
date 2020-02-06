@@ -30,9 +30,6 @@ public class DAO {
 	public ArrayList<Board> getList(int currentPage, Paging paging) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		
-		System.out.println(paging.getStart());
-		System.out.println(paging.getEnd());
-		
 		ArrayList<Board> list = mapper.getList(paging);
 		
 		return list;
@@ -55,6 +52,34 @@ public class DAO {
 		Member member = mapper.getMember(searchID);
 		
 		return member;
+	}
+
+	public void write(Board board) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		mapper.write(board);
+	}
+
+	public Board getBoard(int boardNum) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		Board board = mapper.getBoard(boardNum);
+		
+		return board;
+	}
+
+	public void updateBoard(Board board) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		mapper.updateBoard(board);
+		
+	}
+
+	public void updateHits(int boardNum) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		mapper.updateHits(boardNum);
+	}
+
+	public void deleteBoard(int boardNum) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		mapper.deleteBoard(boardNum);
 	}
 
 }

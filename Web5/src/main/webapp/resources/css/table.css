@@ -3,7 +3,7 @@ h1{
 	text-align : center;
 }
 
-td,tr,td {
+td,tr {
 	border : 1px solid white;
 	border-collapse : collapse;
 }
@@ -19,8 +19,6 @@ td,tr,td {
 }
 
 
-
 table {
-	width : 400px;
 	margin : 0 auto;
 }

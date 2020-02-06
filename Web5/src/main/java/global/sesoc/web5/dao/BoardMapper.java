@@ -9,4 +9,14 @@ public interface BoardMapper {
 
 	ArrayList<Board> getList(Paging paging);
 
+	void write(Board board);
+
+	Board getBoard(int boardNum);
+
+	void updateBoard(Board board);
+
+	void updateHits(int boardNum);
+
+	void deleteBoard(int boardNum);
+
 }

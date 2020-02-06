@@ -7,10 +7,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../resources/css/table.css">
+<script>
+	function writeForm(){
+		location.href = "write";
+	}
+</script>
 </head>
 <body>
 <h1>[ 게시판 ]</h1>
-<div><span style = "margin : 0 10px 0 450px">전체 : ${list.size()}</span><span style = "margin : 0 10px 0 500px"><input type = "button" value = "글쓰기"></span></div>
+<div><span style = "margin : 0 10px 0 450px">전체 : ${list.size()}</span><span style = "margin : 0 10px 0 500px"><input type = "button" value = "글쓰기" onclick = "writeForm()"></span></div>
 <table style = "width : 600px;">
 	<tr>
 		<td class = "td-left">번호</td>
@@ -22,7 +27,7 @@
 		<c:forEach var = "i" items = "${list}">
 		<tr>
 			<td class = "td-right">${i.boardNum}</td>
-			<td class = "td-right" style = "width : 200px"><a href = "board?boardNum=${i.boardNum}">${i.title}</a></td>
+			<td class = "td-right" style = "width : 200px"><a href = "read?boardNum=${i.boardNum}">${i.title}</a></td>
 			<td class = "td-right">${i.id}</td>
 			<td class = "td-right">${i.hits}</td>
 			<td class = "td-right">${i.inputdate}</td>
@@ -30,7 +35,7 @@
 		</c:forEach>
 </table>
 
-<div style = "text-align : center;  position : absolute; left : 898px; bottom : 400px;">
+<div style = "text-align : center;  position : absolute; left : 708px; bottom : 100px;">
 
 <img src = "../resources/img/left.png" width = "20px" height = "20px">
 <c:forEach var = "pageNum" begin = "${paging.rangeStart }" end = "${paging.rangeEnd }">
