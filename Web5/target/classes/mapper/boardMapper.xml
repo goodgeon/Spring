@@ -4,9 +4,9 @@
 <mapper namespace="global.sesoc.web5.dao.BoardMapper">
 	<select id = "getList" parameterType="paging" resultType="board">
 	
-		 select *
-		from (select ROWNUM as r, b.* from web5_board b order by inputdate desc,boardNum) a
-		<![CDATA[where  a.r >= #{start} and a.r <= #{end} ]]> 
+		select c.*
+		from (select ROWNUM r,a.* from (select b.* from web5_board b order by inputdate desc) a) c
+		<![CDATA[where  c.r >= #{start} and c.r <= #{end} ]]> 
 	</select>
 	
 	<insert id="write" parameterType="board">
@@ -42,5 +42,10 @@
 		delete from web5_board
 		where boardNum = #{boardNum}
 	</delete>
+	
+	<select id="getEntireSize" resultType="int">
+		select count(*)
+		from web5_board
+	</select>
 
 </mapper>

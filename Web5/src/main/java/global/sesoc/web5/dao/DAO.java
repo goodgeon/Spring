@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import global.sesoc.web5.paging.Paging;
 import global.sesoc.web5.vo.Board;
 import global.sesoc.web5.vo.Member;
+import global.sesoc.web5.vo.Reply;
 
 @Repository
 public class DAO {
@@ -80,6 +81,25 @@ public class DAO {
 	public void deleteBoard(int boardNum) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
 		mapper.deleteBoard(boardNum);
+	}
+
+	public int getEntireSize() {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int entireSize = mapper.getEntireSize();
+		
+		return entireSize;
+	}
+
+	public void insertReply(Reply reply) {
+		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
+		mapper.insertReply(reply);
+	}
+
+	public ArrayList<Reply> getReplyList(int boardNum) {
+		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
+		ArrayList<Reply> list = mapper.getReplyList(boardNum);
+		
+		return list;
 	}
 
 }

@@ -14,6 +14,7 @@ import global.sesoc.web5.dao.DAO;
 import global.sesoc.web5.paging.Paging;
 import global.sesoc.web5.vo.Board;
 import global.sesoc.web5.vo.Member;
+import global.sesoc.web5.vo.Reply;
 
 @Controller
 @RequestMapping(value = "/board")
@@ -23,16 +24,19 @@ public class BoardController {
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String boardForm(Model model, int currentPage) {
+		int entireSize = dao.getEntireSize();
+		
 		Paging paging = new Paging();
 		
 		paging.setCurrentPage(currentPage);
-		paging.setPageSize(10);
+		paging.setEntireSize(entireSize);
 		paging.setParams();
 		
 		ArrayList<Board> list = dao.getList(currentPage,paging);
 		
 		model.addAttribute("paging",paging);
 		model.addAttribute("list",list);
+		model.addAttribute("entireSize",entireSize);
 		
 		return "/board/boardForm";
 	}
@@ -57,7 +61,9 @@ public class BoardController {
 	public String read(int boardNum, Model model) {
 		dao.updateHits(boardNum);
 		Board board = dao.getBoard(boardNum);
+		ArrayList<Reply> repList = dao.getReplyList(boardNum);
 		
+		model.addAttribute("repList",repList);
 		model.addAttribute("board",board);
 		
 		return "/board/readForm";
@@ -85,6 +91,20 @@ public class BoardController {
 		dao.deleteBoard(boardNum);
 		
 		return "redirect:/board/list?currentPage=1";
+	}
+	
+	// REPLY //
+	@RequestMapping(value = "/reply", method = RequestMethod.POST)
+	public String reply(HttpSession session, String text, int boardNum) {
+		Member m = (Member)session.getAttribute("member");
+		Reply reply = new Reply();
+		
+		reply.setBoardNum(boardNum);
+		reply.setId(m.getId());
+		reply.setText(text);
+		dao.insertReply(reply);
+		
+		return "redirect:/board/read?boardNum="+boardNum;
 	}
 	
 

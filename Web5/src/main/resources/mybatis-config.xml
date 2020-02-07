@@ -6,10 +6,12 @@
 	<typeAliases>
 		<typeAlias type="global.sesoc.web5.vo.Member" alias="member"/>
 		<typeAlias type="global.sesoc.web5.vo.Board" alias="board"/>
+		<typeAlias type="global.sesoc.web5.vo.Reply" alias="reply"/>
 		<typeAlias type="global.sesoc.web5.paging.Paging" alias="paging"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/memberMapper.xml"/>
 		<mapper resource="mapper/boardMapper.xml"/>
+		<mapper resource="mapper/replyMapper.xml"/>
 	</mappers>
 </configuration>
