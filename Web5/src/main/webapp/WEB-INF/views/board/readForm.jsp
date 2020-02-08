@@ -39,10 +39,10 @@
 <h1 class = "text-center">[ 게시판 글읽기 ]</h1>
 
 <div class = "container mt-3">
-	<table class = "table border-bottom">
+	<table class = "table table-bordered">
 		<tr>
-			<th class = "td-left">작성자</th>
-			<td class = "td-right">${board.id}</td>
+			<th class = "td-left" style = "width : 20%;">작성자</th>
+			<td class = "td-right" style = "width : 80%;">${board.id}</td>
 		</tr>
 		<tr>
 			<th class = "td-left">작성일</th>
@@ -67,25 +67,21 @@
 		
 	</table>
 
-
-	<div class="d-flex mb-2 ml-auto">
+	<div class="d-flex mb-2 ml-auto mb-3">
 	<div class = "ml-auto"><input type = "button" class = "btn btn-outline-primary" value = "삭제" onclick = "checkID('${sessionScope.member.id}','${board.id}','${board.boardNum }',1)"></div>
 	<div class = "ml-1"><input type = "button" class = "btn btn-outline-primary" value = "수정" onclick = "checkID('${sessionScope.member.id}','${board.id}','${board.boardNum }',2)"></div>
 	<div class = "ml-1"><input type = "button" class = "btn btn-outline-primary" value = "목록보기" onclick="showList()"></div>
 	</div>
 	
 	
-	<form action = "reply" method = "POST">
-		<div class="form-group row" style = "margin-top : 100px">
-		<label class=" col-form-label form-control-label text-muted">리플 내용</label> <div class = "col-lg-10"><input class="form-control" type = "text" name = "text"></div>
-		
-		<input type = "hidden" name = "boardNum" value = "${board.boardNum}">
-		<input type = "submit" class = "btn btn-primary" value = "확인">
-		</div>
-	</form>
+	<div style = "margin-top : 100px">
+		<hr>
+		<span class = "badge d-flex justify-content-start">댓글목록</span>
+		<hr>
+	</div>
 	
 	
-	<div style = "margin-top : 100px;">
+	<div>
 	<table class = "table" style ="border : 0;">
 		<c:forEach var="reply" items="${repList}">
 			<tr class = "border-bottom">
@@ -96,11 +92,23 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<form action = "reply" method = "POST">
+		<div class="form-group row" style = "margin-top : 100px">
+		<label class=" col-form-label form-control-label text-muted">리플 내용</label> <div class = "col-lg-10"><input class="form-control" type = "text" name = "text"></div>
+		
+		<input type = "hidden" name = "boardNum" value = "${board.boardNum}">
+		<input type = "submit" class = "btn btn-primary" value = "확인">
+		</div>
+	</form>
 </div>
 
 
 </div>
-
+<div class = "d-flex flex-row" style = "margin-top : 100px;">
+		<hr>
+		<span class = "badge justify-content-start">댓글목록</span>
+		<hr>
+	</div>
 
 
 
