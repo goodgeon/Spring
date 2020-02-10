@@ -17,7 +17,7 @@
 </head>
 <body>
 <h1>[ 글쓰기 ]</h1>
-<form action = "write" method = "POST">
+<form action = "write" method = "POST" onsubmit="return formCheck();" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<td class = "td-left">제목</td>
@@ -29,7 +29,7 @@
 		</tr>
 		<tr>
 			<td class = "td-left">파일 첨부</td>
-			<td class = "td-right"><input type = "button" value = "파일 선택"></td>
+			<td class = "td-right"><input type = "file" name = "upload" size="30"></td>
 		</tr>
 	</table>
 	<div style = "text-align : center;">

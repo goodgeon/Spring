@@ -4,14 +4,19 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
+import global.sesoc.web5.HomeController;
 import global.sesoc.web5.dao.DAO;
 import global.sesoc.web5.paging.Paging;
+import global.sesoc.web5.util.FileService;
 import global.sesoc.web5.vo.Board;
 import global.sesoc.web5.vo.Member;
 import global.sesoc.web5.vo.Reply;
@@ -21,6 +26,11 @@ import global.sesoc.web5.vo.Reply;
 public class BoardController {
 	@Autowired
 	DAO dao;
+	
+	final String uploadPath = "/boardfile";
+	
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String boardForm(Model model, int currentPage) {
@@ -47,13 +57,18 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(Board board, HttpSession session) {
+	public String write(Board board, HttpSession session, MultipartFile upload) {
 		Member m = (Member)session.getAttribute("member");
 		board.setId(m.getId());
 		
+		//첨부파일이 있는 경우 지정된 경로에 저장하고, 원본파일명과 저장된 파일명을 vo객체에 세팅
+		if( upload != null) {
+			String savedFile = FileService.saveFile(upload, uploadPath);
+			board.setOriginalFile(upload.getOriginalFilename());
+			board.setSavedFile(savedFile);
+		}
+		
 		dao.write(board);
-		
-		
 		return "redirect:/board/list?currentPage=1";
 	}
 	

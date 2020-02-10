@@ -11,12 +11,28 @@
 	
 	<insert id="write" parameterType="board">
 		insert into web5_board
-		(boardNum,id,title,contents)
+		
+		
+		(boardNum,
+		id,
+		title,
+		contents
+		<if test = "originalFile != null and savedFile != null">
+		,
+		originalFile,
+		savedFile
+		</if>
+		)
 		values(
 			web5_board_seq.nextval,
 			#{id},
 			#{title},
 			#{contents}
+			<if test = "originalFile != null and savedFile != null">
+			,
+			#{originalFile},
+			#{savedFile}
+			</if>
 		)
 	</insert>
 	

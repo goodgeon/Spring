@@ -104,13 +104,6 @@
 
 
 </div>
-<div class = "d-flex flex-row" style = "margin-top : 100px;">
-		<hr>
-		<span class = "badge justify-content-start">댓글목록</span>
-		<hr>
-	</div>
-
-
 
 </body>
 </html>
