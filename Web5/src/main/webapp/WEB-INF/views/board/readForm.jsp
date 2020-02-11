@@ -34,9 +34,17 @@
 		location.href = "list?currentPage=1";
 	}
 
-	function modifyRepForm(){
-		var divModifyRep = document.getElementById("divModifyRep");
-		divModifyRep.innerHTML = "<input type = 'text'>";
+	function modifyRepForm(replyNum){
+		var divModifyRep = document.getElementById("divModifyRep"+replyNum);
+
+		if(divModifyRep.innerHTML == ""){
+			divModifyRep.innerHTML = "<td scope='col'><div class = 'form-group row'>"+
+			"<input type = 'text' class = 'form-control mb-1 mt-1'>"+
+			"<input type = 'button' class = 'btn btn-primary' value = '수정'></div></td>";
+		}else{
+			divModifyRep.innerHTML = "";
+		}
+		
 
 		
 	}
@@ -45,7 +53,7 @@
 <body>
 <h1 class = "text-center">[ 게시판 글읽기 ]</h1>
 
-<div class = "container mt-3">
+<div class = "container mt-5">
 	<table class = "table table-bordered">
 		<tr>
 			<th class = "td-left" style = "width : 20%;">작성자</th>
@@ -78,7 +86,7 @@
 		
 	</table>
 
-	<div class="d-flex mb-2 ml-auto mb-3">
+	<div class="d-flex mb-3">
 	<div class = "ml-auto"><input type = "button" class = "btn btn-outline-primary" value = "삭제" onclick = "checkID('${sessionScope.member.id}','${board.id}','${board.boardNum }',1)"></div>
 	<div class = "ml-1"><input type = "button" class = "btn btn-outline-primary" value = "수정" onclick = "checkID('${sessionScope.member.id}','${board.id}','${board.boardNum }',2)"></div>
 	<div class = "ml-1"><input type = "button" class = "btn btn-outline-primary" value = "목록보기" onclick="showList()"></div>
@@ -87,7 +95,7 @@
 	
 	<div style = "margin-top : 100px">
 		<hr>
-		<span class = "badge d-flex justify-content-start">댓글목록</span>
+		<span class = "badge d-flex">댓글목록</span>
 		<hr>
 	</div>
 	
@@ -95,27 +103,32 @@
 	<div>
 	<table class = "table" style ="border : 0;">
 		<c:forEach var="reply" items="${repList}">
-			<tr class = "border-bottom">
-				<th scope = "col" style= "width : 10%;">${reply.id}</th>
-				<td scope = "col" style = "width : 70%;">${reply.text}</td>
+			<tr class = "border-bottom row">
+				<th scope = "col" class = "col-sm-1">${reply.id}</th>
+				<td scope = "col" class = "col-sm-9">${reply.text}</td>
 				
 				<c:if test="${board.id == sessionScope.member.id}">
-					<td scope = "col" style= "width : 10%;">
-					<a href = "javascript:modifyRepForm()">[수정]</a>
+					<td scope = "col" class = "col-sm-1">
+					<a href = "javascript:modifyRepForm(${reply.replyNum})">[수정]</a>
 					</td>
 					
-					<td scope = "col" style= "width : 10%;">[삭제]</td>
+					<td scope = "col" class = "col-sm-1">[삭제]</td>
 					
 				</c:if>
 				
 			</tr>
-			
+			<tr align = "right" id = "divModifyRep${reply.replyNum}">
+			</tr>
+			<tr class ="d-flex justify-content-end row">
+				<td scope = "col" colspan="3" class = "col-sm-9"><input type = 'text' class = 'form-control mb-1 mt-1'></td>
+				<td scope = "col" class = "col-sm-3"><input type = "button" class = "btn btn-primary" value="수정"></td>
+			</tr>
 		</c:forEach>
+		
 	</table>
 	<form action = "reply" method = "POST">
 		<div class="form-group row" style = "margin-top : 100px">
 		<label class=" col-form-label form-control-label text-muted">리플 내용</label> <div class = "col-lg-10"><input class="form-control" type = "text" name = "text"></div>
-		
 		<input type = "hidden" name = "boardNum" value = "${board.boardNum}">
 		<input type = "submit" class = "btn btn-primary" value = "확인">
 		</div>
