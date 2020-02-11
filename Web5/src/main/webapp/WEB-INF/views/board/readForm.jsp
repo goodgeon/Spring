@@ -38,9 +38,8 @@
 		var divModifyRep = document.getElementById("divModifyRep"+replyNum);
 
 		if(divModifyRep.innerHTML == ""){
-			divModifyRep.innerHTML = "<td scope='col'><div class = 'form-group row'>"+
-			"<input type = 'text' class = 'form-control mb-1 mt-1'>"+
-			"<input type = 'button' class = 'btn btn-primary' value = '수정'></div></td>";
+			divModifyRep.innerHTML = "<td scope='col' class = 'col-sm-10'><input type = 'text' class = 'form-control mb-1 mt-1'></td>"+
+			"<td scope = 'col' class = 'col-sm-1 text-right'><input type = 'button' class = 'btn btn-primary' value='수정'></td>";
 		}else{
 			divModifyRep.innerHTML = "";
 		}
@@ -101,9 +100,9 @@
 	
 	
 	<div>
-	<table class = "table" style ="border : 0;">
+	<table class = "table" >
 		<c:forEach var="reply" items="${repList}">
-			<tr class = "border-bottom row">
+			<tr class = "table-borderless border-bottom row">
 				<th scope = "col" class = "col-sm-1">${reply.id}</th>
 				<td scope = "col" class = "col-sm-9">${reply.text}</td>
 				
@@ -117,12 +116,8 @@
 				</c:if>
 				
 			</tr>
-			<tr align = "right" id = "divModifyRep${reply.replyNum}">
-			</tr>
-			<tr class ="d-flex justify-content-end row">
-				<td scope = "col" colspan="3" class = "col-sm-9"><input type = 'text' class = 'form-control mb-1 mt-1'></td>
-				<td scope = "col" class = "col-sm-3"><input type = "button" class = "btn btn-primary" value="수정"></td>
-			</tr>
+			<tr id = "divModifyRep${reply.replyNum}" class = "d-flex justify-content-end row table-borderless"></tr>
+			
 		</c:forEach>
 		
 	</table>
