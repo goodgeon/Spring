@@ -1,14 +1,23 @@
 package global.sesoc.web5.controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -120,6 +129,41 @@ public class BoardController {
 		dao.insertReply(reply);
 		
 		return "redirect:/board/read?boardNum="+boardNum;
+	}
+	
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	public String download(int boardNum, HttpServletResponse response) {
+		Board board = dao.getBoard(boardNum);
+		String originalFile = board.getOriginalFile();
+		
+		try {
+			response.setHeader("Content-Disposition", " attachment;filename="+ URLEncoder.encode(originalFile, "UTF-8"));
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		
+		String savedFile = board.getSavedFile();
+		
+		String fullpath = uploadPath + "/" + savedFile;
+		
+		FileInputStream filein = null;
+		ServletOutputStream fileout = null;
+		
+		try {
+			filein = new FileInputStream(fullpath);
+			fileout = response.getOutputStream();
+			
+			FileCopyUtils.copy(filein, fileout);
+			
+			filein.close();
+			fileout.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
 	}
 	
 

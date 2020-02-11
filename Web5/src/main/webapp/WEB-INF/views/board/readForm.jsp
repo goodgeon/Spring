@@ -33,6 +33,13 @@
 	function showList(){
 		location.href = "list?currentPage=1";
 	}
+
+	function modifyRepForm(){
+		var divModifyRep = document.getElementById("divModifyRep");
+		divModifyRep.innerHTML = "<input type = 'text'>";
+
+		
+	}
 </script>
 </head>
 <body>
@@ -58,7 +65,11 @@
 		</tr>
 		<tr>
 			<th class = "td-left">파일첨부</th>
-			<td class = "td-right">${board.savedFile}</td>
+			<td class = "td-right">
+			<c:if test="${board.originalFile != null}">
+				<a href = "download?boardNum=${board.boardNum}">${board.originalFile}</a>
+			</c:if> 
+			</td>
 		</tr>
 		<tr>
 			<th class = "td-left">내용</th>
@@ -87,9 +98,18 @@
 			<tr class = "border-bottom">
 				<th scope = "col" style= "width : 10%;">${reply.id}</th>
 				<td scope = "col" style = "width : 70%;">${reply.text}</td>
-				<td scope = "col" style= "width : 10%;"></td>
-				<td scope = "col" style= "width : 10%;"></td>
+				
+				<c:if test="${board.id == sessionScope.member.id}">
+					<td scope = "col" style= "width : 10%;">
+					<a href = "javascript:modifyRepForm()">[수정]</a>
+					</td>
+					
+					<td scope = "col" style= "width : 10%;">[삭제]</td>
+					
+				</c:if>
+				
 			</tr>
+			
 		</c:forEach>
 	</table>
 	<form action = "reply" method = "POST">
