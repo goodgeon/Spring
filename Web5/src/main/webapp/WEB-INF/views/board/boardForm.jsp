@@ -56,8 +56,8 @@
 	</table>
 	</div>
 	
-	<div class = "mt-5 align-bottom">
-			<ul class="pagination justify-content-center align-bottom ">
+	<div class = "mt-3">
+			<ul class="pagination justify-content-center">
 				<c:if test="${paging.rangeStart <= 5}">
 					<li class = "page-item disabled"><a class = "page-link" href = "list?currentPage=${paging.rangeStart - 5}">Previous</a></li>
 				</c:if>
@@ -86,6 +86,19 @@
 				</c:if>
 			</ul>
 		</div>
+		<form action = "list" method = "GET" class="mt-4">
+			<div class = "form-group row justify-content-center">
+				<label class=" col-form-label form-control-label text-muted">제목 : </label> 
+				<div class = "col col-3">
+					<input type = "text" class = "form-control" name = "title">
+					<input type = "hidden" name = "currentPage" value = '1'>
+				</div>
+				<div class = "col col-1">
+					<input type = "submit" value = "검색" class = "btn btn-primary">
+				</div>
+			</div>
+		</form>
+		
 		
 </div>
 

@@ -15,4 +15,11 @@
 		where boardNum = #{boardNum}
 	</select>
 	
+	<update id="updateReply" parameterType="reply">
+		update web5_reply
+		set text=#{text}
+		where replyNum=#{replyNum}
+	</update>
+	
+	
 </mapper>

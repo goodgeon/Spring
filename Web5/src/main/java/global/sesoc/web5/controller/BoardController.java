@@ -42,17 +42,21 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String boardForm(Model model, int currentPage) {
+	public String boardForm(Model model, int currentPage, String title) {
+		ArrayList<Board> list = null;
+		
 		int entireSize = dao.getEntireSize();
 		
 		Paging paging = new Paging();
-		
 		paging.setCurrentPage(currentPage);
 		paging.setEntireSize(entireSize);
 		paging.setParams();
 		
-		ArrayList<Board> list = dao.getList(currentPage,paging);
-		
+		if(title == null) {
+			list = dao.getList(currentPage,paging);
+		}else {
+			list = dao.getSearchList(title,paging);
+		}
 		model.addAttribute("paging",paging);
 		model.addAttribute("list",list);
 		model.addAttribute("entireSize",entireSize);
@@ -131,6 +135,18 @@ public class BoardController {
 		return "redirect:/board/read?boardNum="+boardNum;
 	}
 	
+	@RequestMapping(value = "/updateReply", method = RequestMethod.POST)
+	public String updateReply(String updateReplyContent, int replyNum, int boardNum) {
+		Reply reply = new Reply();
+		reply.setReplyNum(replyNum);
+		reply.setBoardNum(boardNum);
+		reply.setText(updateReplyContent);
+		
+		dao.updateReply(reply);
+		
+		return "redirect:/board/read?boardNum="+boardNum;
+	}
+	
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
 	public String download(int boardNum, HttpServletResponse response) {
 		Board board = dao.getBoard(boardNum);
@@ -161,10 +177,7 @@ public class BoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		return null;
 	}
-	
 
 }

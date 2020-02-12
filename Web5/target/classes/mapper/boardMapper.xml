@@ -9,6 +9,13 @@
 		<![CDATA[where  c.r >= #{start} and c.r <= #{end} ]]> 
 	</select>
 	
+	<select id = "getSearchList" parameterType="map" resultType="board">
+	
+		select c.*
+		from (select ROWNUM r,a.* from (select b.* from web5_board b where title like '%' || #{title} || '%' order by inputdate desc) a) c
+		<![CDATA[where  c.r >= #{paging.start} and c.r <= #{paging.end} ]]> 
+	</select>
+	
 	<insert id="write" parameterType="board">
 		insert into web5_board
 		
@@ -63,5 +70,11 @@
 		select count(*)
 		from web5_board
 	</select>
+	
+	<!-- <select id="getSearchList" parameterType="String" resultType="board">
+		select *
+		from web5_board
+		where title like '%' || #{title} || '%'
+	</select> -->
 
 </mapper>

@@ -34,19 +34,21 @@
 		location.href = "list?currentPage=1";
 	}
 
-	function modifyRepForm(replyNum){
+	function modifyRepForm(replyNum,boardNum){
 		var divModifyRep = document.getElementById("divModifyRep"+replyNum);
 
 		if(divModifyRep.innerHTML == ""){
-			divModifyRep.innerHTML = "<td scope='col' class = 'col-sm-10'><input type = 'text' class = 'form-control mb-1 mt-1'></td>"+
-			"<td scope = 'col' class = 'col-sm-1 text-right'><input type = 'button' class = 'btn btn-primary' value='수정'></td>";
+			var str;
+			str ="<td scope='col' class = 'd-flex row '><form action = 'updateReply' method='POST' class='form-inline col-sm-12'><input type = 'text' class = 'form-control mb-1 mt-1 col-sm-10 ml-auto' name='updateReplyContent'>";
+			str += "<input type = 'submit' class = 'btn btn-primary ml-1' value='수정'>";
+			str += "<input type = 'hidden' name='replyNum' value='"+replyNum+"'><input type = 'hidden' name = 'boardNum' value="+boardNum+"></form></td>";
+
+			divModifyRep.innerHTML=str;
 		}else{
 			divModifyRep.innerHTML = "";
 		}
-		
-
-		
 	}
+
 </script>
 </head>
 <body>
@@ -108,7 +110,7 @@
 				
 				<c:if test="${board.id == sessionScope.member.id}">
 					<td scope = "col" class = "col-sm-1">
-					<a href = "javascript:modifyRepForm(${reply.replyNum})">[수정]</a>
+					<a href = "javascript:modifyRepForm(${reply.replyNum},${board.boardNum})">[수정]</a>
 					</td>
 					
 					<td scope = "col" class = "col-sm-1">[삭제]</td>
@@ -116,7 +118,7 @@
 				</c:if>
 				
 			</tr>
-			<tr id = "divModifyRep${reply.replyNum}" class = "d-flex justify-content-end row table-borderless"></tr>
+			<tr id = "divModifyRep${reply.replyNum}" class = "table-borderless"></tr>
 			
 		</c:forEach>
 		

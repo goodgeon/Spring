@@ -1,6 +1,7 @@
 package global.sesoc.web5.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import global.sesoc.web5.paging.Paging;
 import global.sesoc.web5.vo.Board;
@@ -20,5 +21,7 @@ public interface BoardMapper {
 	void deleteBoard(int boardNum);
 
 	int getEntireSize();
+	
+	ArrayList<Board> getSearchList(HashMap<String, Object> map);
 
 }

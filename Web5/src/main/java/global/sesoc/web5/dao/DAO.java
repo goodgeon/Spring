@@ -1,6 +1,7 @@
 package global.sesoc.web5.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +102,25 @@ public class DAO {
 		
 		return list;
 	}
+
+	public void updateReply(Reply reply) {
+		ReplyMapper mapper = session.getMapper(ReplyMapper.class);
+		mapper.updateReply(reply);
+		
+		
+	}
+
+	public ArrayList<Board> getSearchList(String title, Paging paging) {
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("title", title);
+		map.put("paging", paging);
+		
+		ArrayList<Board> list=  null;
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		list = mapper.getSearchList(map);
+		
+		return list;
+	}
+
 
 }
