@@ -71,10 +71,10 @@
 		from web5_board
 	</select>
 	
-	<!-- <select id="getSearchList" parameterType="String" resultType="board">
-		select *
+	<select id="getSearchSize" parameterType="String" resultType="int">
+		select count(*)
 		from web5_board
 		where title like '%' || #{title} || '%'
-	</select> -->
+	</select>
 
 </mapper>

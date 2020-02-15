@@ -59,28 +59,28 @@
 	<div class = "mt-3">
 			<ul class="pagination justify-content-center">
 				<c:if test="${paging.rangeStart <= 5}">
-					<li class = "page-item disabled"><a class = "page-link" href = "list?currentPage=${paging.rangeStart - 5}">Previous</a></li>
+					<li class = "page-item disabled"><a class = "page-link" href = "list?currentPage=${paging.rangeStart - 5}&title=${title}">Previous</a></li>
 				</c:if>
 				<c:if test="${paging.rangeStart > 5}">
-					<li class = "page-item"><a class = "page-link" href = "list?currentPage=${paging.rangeStart - 5}">Previous</a></li>
+					<li class = "page-item"><a class = "page-link" href = "list?currentPage=${paging.rangeStart - 5}&title=${title}">Previous</a></li>
 				</c:if>
 				
 				<c:forEach var = "pageNum" begin = "${paging.rangeStart }" end = "${paging.rangeEnd }">
+					
 					<c:if test="${paging.currentPage == pageNum }">
-						<li class = "page-item"><a class = "page-link" href = "list?currentPage=${pageNum}" style = "font-weight : bold;">${pageNum}</a></li>
+						<li class = "page-item"><a class = "page-link" href = "list?currentPage=${pageNum}&title=${title}" style = "font-weight : bold;">${pageNum}</a></li>
 					</c:if>
 					<c:if test="${paging.currentPage != pageNum && pageNum <= paging.lastRange}">
-						<li class = "page-item"><a class = "page-link" href = "list?currentPage=${pageNum}">${pageNum}</a></li>
+						<li class = "page-item"><a class = "page-link" href = "list?currentPage=${pageNum}&title=${title}">${pageNum}</a></li>
 					</c:if>
-					
 				</c:forEach>
 				<c:if test="${paging.lastRange > paging.rangeEnd }">
-					<li class = "page-item"><a class = "page-link" href = "list?currentPage=${paging.rangeEnd+1}">
+					<li class = "page-item"><a class = "page-link" href = "list?currentPage=${paging.rangeEnd+1}&title=${title}">
 						Next
 					</a></li>
 				</c:if>
 				<c:if test="${paging.lastRange <= paging.rangeEnd }">
-					<li class = "page-item disabled"><a class = "page-link" href = "list?currentPage=${paging.rangeEnd+1}">
+					<li class = "page-item disabled"><a class = "page-link" href = "list?currentPage=${paging.rangeEnd+1}&title=${title}">
 						Next
 					</a></li>
 				</c:if>

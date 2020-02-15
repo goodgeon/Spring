@@ -46,26 +46,40 @@ public class BoardController {
 		ArrayList<Board> list = null;
 		
 		int entireSize = dao.getEntireSize();
+		int pagingListSize;
 		
 		Paging paging = new Paging();
 		paging.setCurrentPage(currentPage);
-		paging.setEntireSize(entireSize);
-		paging.setParams();
 		
-		if(title == null) {
+		if(title == null || title.equals("")) {
+			paging.setEntireSize(entireSize);
+			paging.setParams();
 			list = dao.getList(currentPage,paging);
+			
 		}else {
+			pagingListSize = dao.getSearchSize(title);
+			logger.info(""+pagingListSize);
+			paging.setEntireSize(pagingListSize);
+			paging.setParams();
 			list = dao.getSearchList(title,paging);
 		}
 		model.addAttribute("paging",paging);
 		model.addAttribute("list",list);
 		model.addAttribute("entireSize",entireSize);
+		model.addAttribute("title",title);
 		
 		return "/board/boardForm";
 	}
 	
 	@RequestMapping(value = "write", method = RequestMethod.GET)
-	public String writeForm() {
+	public String writeForm(HttpSession session) {
+		System.out.println("writeget");
+		
+		if(session.getAttribute("member") == null)
+			session.setAttribute("route", "board/write");
+		else
+			session.removeAttribute("route");
+		
 		return "/board/writeForm";
 	}
 	

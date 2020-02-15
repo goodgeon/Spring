@@ -122,5 +122,13 @@ public class DAO {
 		return list;
 	}
 
+	public int getSearchSize(String title) {
+		int size;
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		size = mapper.getSearchSize(title);
+		return size;
+	}
+
 
 }

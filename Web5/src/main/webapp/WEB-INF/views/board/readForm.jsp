@@ -101,7 +101,7 @@
 	</div>
 	
 	
-	<div>
+	<div class = 'mt-4'>
 	<table class = "table" >
 		<c:forEach var="reply" items="${repList}">
 			<tr class = "table-borderless border-bottom row">

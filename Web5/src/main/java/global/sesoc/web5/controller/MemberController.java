@@ -2,6 +2,8 @@ package global.sesoc.web5.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,9 @@ import global.sesoc.web5.vo.Member;
 @RequestMapping("/member")
 public class MemberController {
 
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
 	@Autowired
 	DAO dao;
 
@@ -50,7 +55,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginForm() {
+	public String loginForm(HttpSession session) {
 
 		return "customer/loginForm";
 	}
@@ -61,7 +66,12 @@ public class MemberController {
 
 		if (m != null)
 			session.setAttribute("member", m);
-
+		
+		if(session.getAttribute("route") != null) {
+			String route = (String)session.getAttribute("route");
+			return "redirect:/"+route;
+		}
+		
 		return "redirect:/";
 	}
 

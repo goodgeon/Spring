@@ -24,4 +24,6 @@ public interface BoardMapper {
 	
 	ArrayList<Board> getSearchList(HashMap<String, Object> map);
 
+	int getSearchSize(String title);
+
 }
